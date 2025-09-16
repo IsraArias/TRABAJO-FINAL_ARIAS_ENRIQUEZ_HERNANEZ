@@ -25,7 +25,7 @@ st.markdown("Este dashboard analiza los **gastos de mantenimiento** por equipo, 
 @st.cache_data
 def cargar_datos():
     # Leer archivo Excel
-    df = pd.read_excel("data/Gasto x Equipo 2020 a 2023.xlsx")
+    df = pd.read_excel("Gasto x Equipo 2020 a 2023 (PYTHON).xlsx")
     
     # Renombrar columnas importantes
     df = df.rename(columns={
@@ -128,3 +128,4 @@ st.markdown("""
 3. El mantenimiento preventivo y las fallas representan la mayor parte del gasto global.  
 4. Con estadística básica (promedio, mediana, desviación estándar) se puede tener un panorama inicial del gasto.  
 """)
+
