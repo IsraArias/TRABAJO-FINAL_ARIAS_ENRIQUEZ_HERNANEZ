@@ -4,10 +4,10 @@
 # Descripción: Análisis interactivo de datos de mantenimiento
 # =============================================================================
 
-import streamlit as st   # Librería para app web interactiva
-import pandas as pd      # Manejo de datos tipo Excel/CSV
-import numpy as np       # Estadística básica
-import matplotlib.pyplot as plt  # Visualizaciones simples
+import streamlit as st           # Librería para app web interactiva
+import pandas as pd              # Manejo de datos tipo Excel/CSV
+import numpy as np               # Estadística básica
+import matplotlib.pyplot as plt  # Librería de visualización (asegúrate que esté en requirements.txt)
 
 # ------------------------------
 # CONFIGURACIÓN INICIAL DE LA APP
@@ -145,5 +145,6 @@ st.markdown("""
 3. El mantenimiento preventivo y las fallas representan la mayor parte del gasto global.  
 4. Con estadística básica (promedio, mediana, desviación estándar) se puede tener un panorama inicial del gasto.  
 """)
+
 
 
