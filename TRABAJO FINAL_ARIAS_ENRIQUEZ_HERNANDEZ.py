@@ -20,10 +20,10 @@ st.set_page_config(page_title="Análisis de gastos de mantenimiento", layout="wi
 col1, col2 = st.columns([1, 1])  # Dos columnas de igual ancho
 
 with col1:
-    st.image("imagen1 (1).png", use_column_width=True, caption="ESPE")
+    st.image("imagen1 (1).png", use_container_width=True, caption="ESPE")
 
 with col2:
-    st.image("imagen2.png", use_column_width=True, caption="Innovativa")
+    st.image("imagen2.png", use_container_width=True, caption="Innovativa")
 
 # ------------------------------
 # TÍTULO Y DESCRIPCIÓN
