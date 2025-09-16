@@ -41,26 +41,54 @@ st.markdown("Este dashboard analiza los **gastos de mantenimiento** por equipo, 
 # ------------------------------
 @st.cache_data
 def cargar_datos():
-    # Leer archivo Excel
+    # ------------------------------
+    # 1️⃣ Leer archivo Excel
+    # ------------------------------
     df = pd.read_excel("Gasto x Equipo 2020 a 2023 (PYTHON).xlsx")
     
-    # Renombrar columnas importantes
+    # ------------------------------
+    # 2️⃣ Limpiar nombres de columnas
+    # - Quita espacios al inicio/final
+    # - Reduce múltiples espacios a uno solo
+    # - Quita saltos de línea
+    # ------------------------------
+    df.columns = df.columns.str.strip() \
+                           .str.replace('\n','') \
+                           .str.replace(' +', ' ', regex=True)
+    
+    # ------------------------------
+    # 3️⃣ Renombrar columnas clave
+    # ------------------------------
     df = df.rename(columns={
         "Descripción Equipo": "Descripcion",
         "Fecha Instal.": "Fecha_Instalacion",
-        "GOT Reactivas (USD)": "Reactivas",
+        "GOT Reactivas. (USD)": "Reactivas",
         "GOT A Falla (USD)": "Falla",
         "GOT Mejoras (USD)": "Mejoras",
         "GOT Preven. (USD)": "Preventivo",
         "GOT CBM (USD)": "CBM"
     })
     
-    # Crear columna de gasto total
-    df["Gasto_Total"] = df[["Reactivas", "Falla", "Mejoras", "Preventivo", "CBM"]].sum(axis=1)
+    # ------------------------------
+    # 4️⃣ Crear columna de gasto total
+    # ------------------------------
+    gasto_cols = ["Reactivas", "Falla", "Mejoras", "Preventivo", "CBM"]
     
-    # Crear columna de año (extraída de la fecha de instalación)
+    # Verificar que todas las columnas existan antes de sumar
+    for col in gasto_cols:
+        if col not in df.columns:
+            df[col] = 0  # Si no existe, crear columna con ceros
+    
+    df["Gasto_Total"] = df[gasto_cols].sum(axis=1)
+    
+    # ------------------------------
+    # 5️⃣ Extraer año de la fecha de instalación
+    # ------------------------------
     df["Año"] = pd.to_datetime(df["Fecha_Instalacion"], errors="coerce").dt.year
     
+    # ------------------------------
+    # 6️⃣ Retornar DataFrame limpio
+    # ------------------------------
     return df
 
 df = cargar_datos()
@@ -145,6 +173,7 @@ st.markdown("""
 3. El mantenimiento preventivo y las fallas representan la mayor parte del gasto global.  
 4. Con estadística básica (promedio, mediana, desviación estándar) se puede tener un panorama inicial del gasto.  
 """)
+
 
 
 
