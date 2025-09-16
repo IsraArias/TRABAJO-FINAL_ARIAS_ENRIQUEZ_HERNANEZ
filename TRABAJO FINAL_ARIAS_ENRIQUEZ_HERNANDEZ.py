@@ -7,7 +7,7 @@
 import streamlit as st           # Librería para app web interactiva
 import pandas as pd              # Manejo de datos tipo Excel/CSV
 import numpy as np               # Estadística básica
-import matplotlib.pyplot as plt  # Librería de visualización (asegúrate que esté en requirements.txt)
+import matplotlib.pyplot as plt  # Librería de visualización
 
 # ------------------------------
 # CONFIGURACIÓN INICIAL DE LA APP
@@ -17,16 +17,13 @@ st.set_page_config(page_title="Análisis de gastos de mantenimiento", layout="wi
 # ------------------------------
 # ENCABEZADO CON IMÁGENES
 # ------------------------------
-col1, col2, col3 = st.columns([1, 1, 1])  # Tres columnas de igual ancho
+col1, col2 = st.columns([1, 1])  # Dos columnas de igual ancho
 
 with col1:
     st.image("imagen1 (1).png", use_column_width=True, caption="ESPE")
 
 with col2:
-    st.image("MANT.jpeg", use_column_width=True, caption="Innovativa")
-
-with col3:
-    st.image("imagen2.png", use_column_width=True, caption="Mantenimiento")
+    st.image("imagen2.png", use_column_width=True, caption="Innovativa")
 
 # ------------------------------
 # TÍTULO Y DESCRIPCIÓN
@@ -57,7 +54,7 @@ def cargar_datos():
                            .str.replace(' +', ' ', regex=True)
     
     # ------------------------------
-    # 3️⃣ Renombrar columnas clave
+    #  Renombrar columnas clave
     # ------------------------------
     df = df.rename(columns={
         "Descripción Equipo": "Descripcion",
@@ -70,7 +67,7 @@ def cargar_datos():
     })
     
     # ------------------------------
-    # 4️⃣ Crear columna de gasto total
+    #  Crear columna de gasto total
     # ------------------------------
     gasto_cols = ["Reactivas", "Falla", "Mejoras", "Preventivo", "CBM"]
     
@@ -82,12 +79,12 @@ def cargar_datos():
     df["Gasto_Total"] = df[gasto_cols].sum(axis=1)
     
     # ------------------------------
-    # 5️⃣ Extraer año de la fecha de instalación
+    #  Extraer año de la fecha de instalación
     # ------------------------------
     df["Año"] = pd.to_datetime(df["Fecha_Instalacion"], errors="coerce").dt.year
     
     # ------------------------------
-    # 6️⃣ Retornar DataFrame limpio
+    #  Retornar DataFrame limpio
     # ------------------------------
     return df
 
@@ -96,7 +93,7 @@ df = cargar_datos()
 # ------------------------------
 # PANEL LATERAL DE OPCIONES
 # ------------------------------
-st.sidebar.header("⚙️ Opciones de análisis")
+st.sidebar.header(" Opciones de análisis")
 
 equipo_sel = st.sidebar.selectbox("Seleccione un equipo:", df["Equipo"].unique())
 tipos_gasto = st.sidebar.multiselect(
@@ -108,7 +105,7 @@ tipos_gasto = st.sidebar.multiselect(
 # ------------------------------
 # ESTADÍSTICA DESCRIPTIVA
 # ------------------------------
-st.subheader("📌 Estadística básica del gasto total (todos los equipos)")
+st.subheader(" Estadística básica del gasto total (todos los equipos)")
 
 gastos = df["Gasto_Total"].values
 st.write(f"- Promedio: {np.mean(gastos):,.2f} USD")
@@ -120,7 +117,7 @@ st.write(f"- Mínimo: {np.min(gastos):,.2f} USD")
 # ------------------------------
 # VISUALIZACIÓN 1: Top equipos
 # ------------------------------
-st.subheader("🏆 Top 10 equipos con mayor gasto total")
+st.subheader(" Top 10 equipos con mayor gasto total")
 top_equipos = df.groupby("Descripcion")["Gasto_Total"].sum().sort_values(ascending=False).head(10)
 
 fig, ax = plt.subplots(figsize=(8, 5))
@@ -173,6 +170,7 @@ st.markdown("""
 3. El mantenimiento preventivo y las fallas representan la mayor parte del gasto global.  
 4. Con estadística básica (promedio, mediana, desviación estándar) se puede tener un panorama inicial del gasto.  
 """)
+
 
 
 
