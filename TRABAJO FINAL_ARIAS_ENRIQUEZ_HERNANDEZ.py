@@ -14,6 +14,23 @@ import matplotlib.pyplot as plt  # Visualizaciones simples
 # ------------------------------
 st.set_page_config(page_title="Análisis de gastos de mantenimiento", layout="wide")
 
+# ------------------------------
+# ENCABEZADO CON IMÁGENES
+# ------------------------------
+col1, col2, col3 = st.columns([1, 1, 1])  # Tres columnas de igual ancho
+
+with col1:
+    st.image("imagen1 (1).png", use_column_width=True, caption="ESPE")
+
+with col2:
+    st.image("MANT.jpeg", use_column_width=True, caption="Innovativa")
+
+with col3:
+    st.image("imagen2.png", use_column_width=True, caption="Mantenimiento")
+
+# ------------------------------
+# TÍTULO Y DESCRIPCIÓN
+# ------------------------------
 st.title("📊 Análisis de gastos de mantenimiento (2020-2023)")
 st.markdown("Este dashboard analiza los **gastos de mantenimiento** por equipo, "
             "considerando gastos **reactivos, fallas, mejoras, preventivos y CBM**. "
@@ -128,4 +145,5 @@ st.markdown("""
 3. El mantenimiento preventivo y las fallas representan la mayor parte del gasto global.  
 4. Con estadística básica (promedio, mediana, desviación estándar) se puede tener un panorama inicial del gasto.  
 """)
+
 
